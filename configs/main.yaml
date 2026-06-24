@@ -1,0 +1,13 @@
+# configs/main.yaml
+
+llm:
+  class_path: "src.components.llms.openai_wrapper.OpenAILLM"
+  init_args:
+    model_name: "gpt-4o"
+    temperature: 0.0
+
+vector_db:
+  class_path: "src.components.retrievers.chroma_wrapper.ChromaDBWrapper"
+  init_args:
+    collection_name: "agent_toolkit_docs"
+    persist_directory: "./chroma_data"
