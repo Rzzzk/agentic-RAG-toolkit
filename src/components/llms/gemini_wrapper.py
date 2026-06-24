@@ -5,13 +5,11 @@ from langchain_core.messages import BaseMessage
 from src.core.base_llm import BaseLLM
 
 class GeminiLLM(BaseLLM):
-    """
-    Concrete implementation of BaseLLM for Google's free-tier Gemini models.
-    """
+    """Concrete implementation for Google's free-tier Gemini models."""
     def __init__(self, model_name: str = "gemini-1.5-flash", temperature: float = 0.0):
         api_key = os.getenv("GOOGLE_API_KEY")
         if not api_key:
-            raise ValueError("GOOGLE_API_KEY environment variable is missing.")
+            raise ValueError("GOOGLE_API_KEY is missing from environment variables.")
             
         self.llm = ChatGoogleGenerativeAI(
             model=model_name,
@@ -21,8 +19,6 @@ class GeminiLLM(BaseLLM):
 
     def generate(self, messages: list[BaseMessage], **kwargs) -> Dict[str, Any]:
         response = self.llm.invoke(messages, **kwargs)
-        
-        # Format metrics standardly for your downstream UI tracking
         return {
             "message": response,
             "token_usage": {
@@ -30,5 +26,3 @@ class GeminiLLM(BaseLLM):
                 "completion_tokens": response.response_metadata.get("token_usage", {}).get("completion_tokens", 0)
             }
         }
-
-print("Free LLM Component successfully registered to contract.")

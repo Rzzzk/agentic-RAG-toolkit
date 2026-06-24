@@ -1,0 +1,11 @@
+llm:
+  class_path: "src.components.llms.gemini_wrapper.GeminiLLM"
+  init_args:
+    model_name: "gemini-2.5-flash"
+    temperature: 0.1
+
+vector_db:
+  class_path: "src.components.retrievers.gemini_chroma_wrapper.GeminiChromaDBWrapper"
+  init_args:
+    collection_name: "pdf_collection"
+    persist_directory: "./chroma_data"
